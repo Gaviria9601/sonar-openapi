@@ -67,10 +67,11 @@ public class DefinedResponseCheck extends OpenApiCheck {
   private boolean visitResponseV2OrMediaType(JsonNode node, boolean hasDefaultContent) {
     JsonNode actual = node.resolve();
     Map<String, JsonNode> properties = actual.propertyMap();
-    if (!properties.containsKey("schema") && !hasDefaultContent) {
-      addIssue(MESSAGE_NO_MODEL, node.key());
-      return false;
-    }
+      if (!properties.containsKey("schema") && !hasDefaultContent &&
+              !actual.getPointer().contains("head")) {
+        addIssue(MESSAGE_NO_MODEL, node.key());
+        return false;
+      }
     return true;
   }
 

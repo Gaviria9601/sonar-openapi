@@ -90,7 +90,7 @@ public class OpenApiScannerSensorTest {
     sensor().execute(context);
 
     String key = "moduleKey:file1.yaml";
-    assertThat(context.measure(key, CoreMetrics.NCLOC).value()).isEqualTo(29);
+    assertThat(context.measure(key, CoreMetrics.NCLOC).value()).isEqualTo(30);
     assertThat(context.measure(key, OpenApiMetrics.PATHS_COUNT).value()).isEqualTo(2);
     assertThat(context.measure(key, OpenApiMetrics.OPERATIONS_COUNT).value()).isEqualTo(2);
     assertThat(context.measure(key, OpenApiMetrics.SCHEMAS_COUNT).value()).isEqualTo(2);
