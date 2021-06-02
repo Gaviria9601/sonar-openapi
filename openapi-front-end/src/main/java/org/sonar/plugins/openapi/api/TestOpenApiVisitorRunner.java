@@ -19,8 +19,7 @@
  */
 package org.sonar.plugins.openapi.api;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import org.sonar.openapi.OpenApiConfiguration;
@@ -58,9 +57,33 @@ public class TestOpenApiVisitorRunner {
   }
 
   public static OpenApiVisitorContext createContext(File file, YamlParser parser) {
+    try {
+    modifyFile(file.getAbsolutePath(),new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8).replace("---\n",""));
+    } catch (IOException e) {
+      throw new IllegalStateException("Cannot read " + file, e);
+    }
     TestOpenApiFile openApiFile = new TestOpenApiFile(file);
     JsonNode rootTree = parser.parse(file);
     return new OpenApiVisitorContext(rootTree, parser.getIssues(), openApiFile);
+  }
+
+  public static void modifyFile(String filePath,String newString)
+  {
+    File fileToBeModified = new File(filePath);
+    FileWriter writer = null;
+
+    try
+    {
+      //Rewriting the input text file with newContent
+      writer = new FileWriter(fileToBeModified);
+      writer.write(newString);
+      //Closing the resources
+      writer.close();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   private static class TestOpenApiFile implements OpenApiFile {

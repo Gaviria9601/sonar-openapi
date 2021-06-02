@@ -20,6 +20,10 @@
 package org.sonar.openapi;
 
 import com.sonar.sslr.api.RecognitionException;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Set;
 import org.sonar.api.batch.fs.InputFile;
@@ -103,9 +107,15 @@ public class OpenApiAnalyzer {
   }
 
   private void scanFile(InputFile inputFile) {
+    String codeDefault = null;
+    try {
+      codeDefault = new String(Files.readAllBytes(inputFile.file().toPath()), StandardCharsets.UTF_8);
+      modifyFile(inputFile.file().getAbsolutePath(),codeDefault.replace("---",""));
+    } catch (IOException e) {
+      throw new IllegalStateException("Cannot read " + inputFile.file(), e);
+    }
     OpenApiFile openApiFile = SonarQubeOpenApiFile.create(inputFile);
     OpenApiVisitorContext visitorContext;
-
     try {
       visitorContext = new OpenApiVisitorContext(parser.parse(inputFile.file()), parser.getIssues(), openApiFile);
       saveMeasures(inputFile, visitorContext);
@@ -124,6 +134,26 @@ public class OpenApiAnalyzer {
 
     for (OpenApiCheck check : checks.all()) {
       saveIssues(inputFile, check, check.scanFileForIssues(visitorContext));
+    }
+    modifyFile(inputFile.file().getAbsolutePath(),codeDefault);
+  }
+
+  private void modifyFile(String filePath,String newString)
+  {
+    File fileToBeModified = new File(filePath);
+    Writer writer = null;
+    try
+    {
+      //Rewriting the input text file with newContent
+      writer = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(filePath), StandardCharsets.UTF_8));
+      writer.write(newString);
+      //Closing the resources
+      writer.close();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
     }
   }
 
