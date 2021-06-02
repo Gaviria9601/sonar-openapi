@@ -1,0 +1,27 @@
+<p>Apis Logs Registered. According to standard GAC06 - Security Standard for Traceability and Monitoring.
+</p>
+
+<h2>Noncompliant Code Example (OpenAPI 2)</h2>
+<pre>
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+x-ibm-configuration:
+    ...
+</pre>
+<h2>Compliant Solution (OpenAPI 2)</h2>
+<pre>
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+x-ibm-configuration:
+  assembly:
+    execute:
+      - activity-log:
+          title: request-in-log
+          content: payload
+          error-content: payload
+          version: 1.0.0
+</pre>

@@ -30,6 +30,7 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
   SCHEMA,
   PARAMETER,
   RESPONSE,
+  X_IBM_CONFIGURATION,
   SECURITY_SCHEME,
   BASIC_SECURITY_SCHEME,
   API_KEY_SECURITY_SCHEME,
@@ -78,6 +79,7 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
       b.property("definitions", DEFINITIONS),
       b.property("parameters", PARAMETERS),
       b.property("responses", RESPONSES_DEFINITIONS),
+      b.property("x-ibm-configuration", X_IBM_CONFIGURATION),
       b.property("securityDefinitions", SECURITY_DEFINITIONS),
       b.property("security", b.array(SECURITY_REQUIREMENT)),
       b.property("tags", b.array(TAG)),
@@ -98,6 +100,7 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
     b.rule(DESCRIPTION).is(b.string()).skip();
     buildInfo(b);
     buildPaths(b);
+    buildIBMConfiguration(b);
     buildDefinitions(b);
     buildParameters(b);
     buildResponses(b);
@@ -105,6 +108,19 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
     buildTags(b);
 
     return b;
+  }
+
+  private static void buildIBMConfiguration(YamlGrammarBuilder b) {
+    b.rule(X_IBM_CONFIGURATION).is(b.object(
+            b.mandatoryProperty("enforced", b.bool()),
+            b.property("phase", b.anything()),
+            b.property("testable", b.bool()),
+            b.property("cors", b.anything()),
+            b.property("assembly", b.anything()),
+            b.property("properties", b.anything()),
+            b.property("catalogs", b.anything()),
+            b.property("extensions", b.anything()),
+            b.patternProperty(EXTENSION_PATTERN, b.anything())));
   }
 
   private static void buildTags(YamlGrammarBuilder b) {
@@ -155,6 +171,7 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
       b.property("schema", SCHEMA),
       b.property("headers", b.object(b.patternProperty(".*", HEADER))),
       b.property("example", EXAMPLE),
+      b.property("examples", b.anything()),
       b.patternProperty(EXTENSION_PATTERN, b.anything())));
     b.rule(HEADER).is(b.object(
       b.property("description", DESCRIPTION),
@@ -264,7 +281,7 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
       b.property("allOf", b.array(SCHEMA)),
       b.property("properties", b.object(
         b.patternProperty(".*", SCHEMA))),
-      b.property("additionalProperties", b.firstOf(b.bool(false), SCHEMA)),
+      b.property("additionalProperties", b.firstOf(b.bool(false),b.bool(true), SCHEMA)),
       b.property("discriminator", b.string()),
       b.property("readOnly", b.bool()),
       b.property("xml", XML),
