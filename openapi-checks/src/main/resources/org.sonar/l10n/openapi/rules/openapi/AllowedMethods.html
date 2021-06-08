@@ -1,0 +1,25 @@
+<p>Not should exists methods additionals to those permitted. Only the HTTP methods required for each API should be enabled; by default GET and POST and only PUT, DELETE and OPTIONS , when are required.
+</p>
+
+<h2>Noncompliant Code Example (OpenAPI 2)</h2>
+<pre>
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+paths:
+  /customer/transactions:
+    path
+    ...
+</pre>
+<h2>Compliant Solution (OpenAPI 2)</h2>
+<pre>
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+paths:
+  /customer/transactions:
+    put
+    ...
+</pre>

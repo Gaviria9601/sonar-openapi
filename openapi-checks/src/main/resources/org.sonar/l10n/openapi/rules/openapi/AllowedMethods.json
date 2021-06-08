@@ -1,0 +1,16 @@
+{
+  "title": "Enable only methods required",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5mn"
+  },
+  "tags": [
+    "methods",
+    "should"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "https://nam10.safelinks.protection.outlook.com/ap/x-59584e83/?url=https%3A%2F%2Fbancolombia.sharepoint.com%2F%3Ax%3A%2Fr%2Fsites%2Fco-csi%2FSGSI%2FEstandares%2520de%2520Seguridad%2FAplicaciones%2FAPL04%2520-%2520Est%25C3%25A1ndar%2520de%2520Seguridad%2520para%2520Publicar%2520API.xlsx%3Fd%3Dwdd75f59b361e487ba53bc22627ca1f90%26csf%3D1%26web%3D1%26e%3DSowQaN&data=04%7C01%7Csagavir%40bancolombia.com.co%7C1b1f6283d4924bc75c5308d914c357ed%7Cb5e244bdc492495b8b1061bfd453e423%7C0%7C0%7C637563651994450638%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=dyIcLmbN3jDZFbpkIhY0eE0Vj6c9t0BNZiFN3SCyCyA%3D&reserved=0",
+  "sqKey": "AllowedMethods"
+}

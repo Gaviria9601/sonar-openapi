@@ -19,32 +19,17 @@
  */
 package org.sonar.openapi.checks;
 
-import java.util.Arrays;
-import java.util.List;
+import org.junit.Test;
+import org.sonar.openapi.OpenApiCheckVerifier;
 
-public final class CheckList {
-  public static final String REPOSITORY_KEY = "openapi";
+public class AllowedMethodsCheckTest {
 
-  private CheckList() {
-  }
+    @Test
+    public void verify_allowed_methods_v2() {
+        AllowedMethodsCheck allowedMethodsCheck = new AllowedMethodsCheck();
+        allowedMethodsCheck.methodsAllowed = ".*(post|get|put).*";
+        OpenApiCheckVerifier.verify("src/test/resources/checks/v2/allowed-methods.yaml",
+                allowedMethodsCheck, true);
+    }
 
-  public static List<Class> getChecks() {
-    return Arrays.asList(
-      PathMaskeradingCheck.class,
-      MediaTypeCheck.class,
-      ParsingErrorCheck.class,
-      DefaultResponseCheck.class,
-      DefinedResponseCheck.class,
-      DeclaredTagCheck.class,
-      DocumentedTagCheck.class,
-      AtMostOneBodyParameterCheck.class,
-      NoUnusedDefinitionCheck.class,
-      NoContentIn204Check.class,
-      ProvideOpSummaryCheck.class,
-      ContactValidEmailCheck.class,
-      DescriptionDiffersSummaryCheck.class,
-      ActivityLogCheck.class,
-      AllowedMethodsCheck.class
-    );
-  }
 }
