@@ -1,0 +1,17 @@
+{
+  "title": "APIs must define register logs",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5mn"
+  },
+  "tags": [
+    "logs",
+    "bad-practice",
+    "should"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "https://www.ibm.com/docs/en/acfc?topic=execute-activity-log",
+  "sqKey": "ActivityLog"
+}

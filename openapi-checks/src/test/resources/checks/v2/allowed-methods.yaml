@@ -1,0 +1,22 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+tags:
+  - name: allowed-methods
+    description: allowed methods in operation
+paths:
+  /pets:
+    get:
+      responses: {}
+    post:
+      responses:
+        default:
+          description: the default response
+  /stores:
+    get:
+      responses: { }
+    post:
+      responses:
+        default:
+          description: the default response
