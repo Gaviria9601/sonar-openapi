@@ -60,7 +60,9 @@ public class DefinedResponseCheck extends OpenApiCheck {
     boolean hasDefaultSchema = defaultResponse != null && visitResponseV2OrMediaType(defaultResponse, false);
 
     for (Map.Entry<String, JsonNode> entry : responses.entrySet()) {
-      visitResponseV2OrMediaType(entry.getValue(), hasDefaultSchema);
+      if(!entry.getKey().equals("204")){
+        visitResponseV2OrMediaType(entry.getValue(), hasDefaultSchema);
+      }
     }
   }
 
