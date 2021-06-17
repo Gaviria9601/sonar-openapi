@@ -120,6 +120,8 @@ public enum OpenApi2Grammar implements GrammarRuleKey {
             b.property("properties", b.anything()),
             b.property("catalogs", b.anything()),
             b.property("extensions", b.anything()),
+            b.property("application-authentication",b.anything()),
+            b.property("gateway",b.anything()),
             b.patternProperty(EXTENSION_PATTERN, b.anything())));
   }
 
