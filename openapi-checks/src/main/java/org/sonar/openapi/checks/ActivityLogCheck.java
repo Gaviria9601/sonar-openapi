@@ -24,6 +24,7 @@ import com.sonar.sslr.api.AstNodeType;
 import org.sonar.check.Rule;
 import org.sonar.plugins.openapi.api.OpenApiCheck;
 import org.sonar.plugins.openapi.api.v2.OpenApi2Grammar;
+import org.sonar.plugins.openapi.api.v3.OpenApi3Grammar;
 import org.sonar.sslr.yaml.grammar.JsonNode;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class ActivityLogCheck extends OpenApiCheck {
 
     @Override
     public Set<AstNodeType> subscribedKinds() {
-        return Sets.newHashSet(OpenApi2Grammar.X_IBM_CONFIGURATION);
+        return Sets.newHashSet(OpenApi2Grammar.X_IBM_CONFIGURATION, OpenApi3Grammar.X_IBM_CONFIGURATION);
     }
 
     @Override

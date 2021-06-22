@@ -25,6 +25,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.openapi.api.OpenApiCheck;
 import org.sonar.plugins.openapi.api.v2.OpenApi2Grammar;
+import org.sonar.plugins.openapi.api.v3.OpenApi3Grammar;
 import org.sonar.sslr.yaml.grammar.JsonNode;
 
 import java.util.Set;
@@ -42,7 +43,7 @@ public class AllowedMethodsCheck extends OpenApiCheck {
 
     @Override
     public Set<AstNodeType> subscribedKinds() {
-        return Sets.newHashSet(OpenApi2Grammar.OPERATION);
+        return Sets.newHashSet(OpenApi2Grammar.OPERATION, OpenApi3Grammar.OPERATION);
     }
 
     @Override
