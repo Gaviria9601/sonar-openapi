@@ -28,6 +28,7 @@ public enum OpenApi3Grammar implements GrammarRuleKey {
   INFO,
   PATHS,
   COMPONENTS,
+  X_IBM_CONFIGURATION,
   PARAMETER,
   RESPONSE,
   SECURITY_SCHEME,
@@ -87,6 +88,7 @@ public enum OpenApi3Grammar implements GrammarRuleKey {
       b.property("servers", b.array(SERVER)),
       b.mandatoryProperty("paths", PATHS),
       b.property("components", COMPONENTS),
+      b.property("x-ibm-configuration",X_IBM_CONFIGURATION),
       b.property("security", b.array(SECURITY_REQUIREMENT)),
       b.property("tags", b.array(TAG)),
       b.property("externalDocs", EXTERNAL_DOC),
@@ -103,10 +105,26 @@ public enum OpenApi3Grammar implements GrammarRuleKey {
     buildServer(b);
     buildPaths(b);
     buildComponents(b);
+    buildIBMConfiguration(b);
     buildSecurityDefinitions(b);
     buildTags(b);
 
     return b;
+  }
+
+  private static void buildIBMConfiguration(YamlGrammarBuilder b) {
+    b.rule(X_IBM_CONFIGURATION).is(b.object(
+            b.mandatoryProperty("enforced", b.bool()),
+            b.property("phase", b.anything()),
+            b.property("testable", b.bool()),
+            b.property("cors", b.anything()),
+            b.property("assembly", b.anything()),
+            b.property("properties", b.anything()),
+            b.property("catalogs", b.anything()),
+            b.property("extensions", b.anything()),
+            b.property("application-authentication",b.anything()),
+            b.property("gateway",b.anything()),
+            b.patternProperty(EXTENSION_PATTERN, b.anything())));
   }
 
   private static void buildTags(YamlGrammarBuilder b) {

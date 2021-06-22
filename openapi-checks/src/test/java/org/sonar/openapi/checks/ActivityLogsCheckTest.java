@@ -29,5 +29,10 @@ public class ActivityLogsCheckTest {
         OpenApiCheckVerifier.verify("src/test/resources/checks/v2/activity-logs.yaml", new ActivityLogCheck(), true);
     }
 
+    @Test
+    public void verify_activity_log_v3(){
+        OpenApiCheckVerifier.verify("src/test/resources/checks/v3/activity-logs.yaml", new ActivityLogCheck(), false);
+    }
+
 
 }

@@ -32,4 +32,12 @@ public class AllowedMethodsCheckTest {
                 allowedMethodsCheck, true);
     }
 
+    @Test
+    public void verify_allowed_methods_v3(){
+        AllowedMethodsCheck allowedMethodsCheck = new AllowedMethodsCheck();
+        allowedMethodsCheck.methodsAllowed = ".*(post|get|put).*";
+        OpenApiCheckVerifier.verify("src/test/resources/checks/v3/allowed-methods.yaml",
+                allowedMethodsCheck,false);
+    }
+
 }
